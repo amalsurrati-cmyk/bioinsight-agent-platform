@@ -16,3 +16,14 @@ if uploaded_file is not None:
         st.markdown(report)
     else:
         st.error(f"Something went wrong: {response.status_code}")
+
+st.divider()
+st.subheader("Past Reports")
+
+history_response = requests.get("http://127.0.0.1:8000/history")
+if history_response.status_code == 200:
+    reports = history_response.json()["reports"]
+    for r in reports:
+        if st.button(f"{r['filename']} ({r['created_at'][:16]})", key=r['id']):
+            past_report = requests.get(f"http://127.0.0.1:8000/report/{r['id']}").json()["report"]
+            st.markdown(past_report)
