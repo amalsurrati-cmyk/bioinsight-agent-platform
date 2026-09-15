@@ -51,3 +51,4 @@ if __name__ == "__main__":
     init_db()
     save_report("test.csv", "tabular", "This is a test report.")
     print(get_all_reports())
+    
